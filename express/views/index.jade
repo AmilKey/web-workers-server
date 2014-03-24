@@ -1,0 +1,53 @@
+require('views')
+
+extends layout
+
+include mixins/packages
+
+block head
+  link(rel='stylesheet', href='stylesheets/app.css')
+  //if IE 7
+      link(rel='stylesheet', href='stylesheets/font-awesome-ie7.min.css')
+  script(src='javascripts/head.min.js')
+  script(src='javascripts/app.min.js', defer, onload="require('initialize');")
+block content
+  .container
+    .row.well
+      .span12
+        a.brand(href="https://github.com/AmilKey/brunch-with-express-socketio", target="_blank")        
+          h1= title
+          small= version
+    .row
+      .span12
+        .hero-unit.well
+          p Welcome to Brunch with Express and Socket.IO and Jade
+          p: small <i class="icon-thumbs-up"></i> Based on 
+            p: a(href="https://github.com/denya133/brunch-with-ember-and-express", target="_blank") Brunch with Ember and Express
+            p: a(href="https://github.com/jerfowler/ExpressBrunchJade", target="_blank") Express Brunch with Jade
+          p: a(class="btn btn-primary btn-large", href="https://github.com/AmilKey/brunch-with-express-socketio", target="_blank") Learn more
+      .col-md-12
+        .package
+          h2 Web Workers
+          .form-group
+            h3
+              input#exampleInputFile(type='file')
+              input.btn.btn-primary(type='button', onclick='draw(\'my_canvas\')', value='Нарисовать')
+              button(onclick='myFunction()') Try it
+
+          .container__canvas.clearfix
+            canvas#my_canvas(width='400', height='300')
+            canvas#your_canvas(width='400', height='300')  
+    hr
+    footer
+      p © Company 2014
+
+    
+block scripts
+  script(src='/socket.io/socket.io.js')
+  script(src='javascripts/vendor.min.js')
+  //- // Google Analytics: change UA-XXXXX-X to be your site's ID.
+  //- script
+  //-   var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+  //-   (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  //-   g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  //-   s.parentNode.insertBefore(g,s)}(document,'script'));
