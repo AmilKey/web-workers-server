@@ -31,7 +31,7 @@ block content
           .form-group
             h3
               input#exampleInputFile(type='file')
-              input.btn.btn-primary(type='button', onclick='draw(\'my_canvas\')', value='Нарисовать')
+              input.btn.btn-primary(type='button', onclick='draw()', value='Нарисовать')
               button(onclick='myFunction()') Try it
 
           .container__canvas.clearfix
@@ -41,7 +41,7 @@ block content
     footer
       p © Company 2014
 
-    
+
 block scripts
   script(src='/socket.io/socket.io.js')
   script(src='javascripts/vendor.min.js')
