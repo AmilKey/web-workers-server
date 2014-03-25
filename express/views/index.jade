@@ -9,7 +9,7 @@ block head
   //if IE 7
       link(rel='stylesheet', href='stylesheets/font-awesome-ie7.min.css')
   script(src='javascripts/head.min.js')
-  script(src='javascripts/app.min.js', defer, onload="require('initialize');")
+
 block content
   .container
     .row.well
@@ -45,6 +45,7 @@ block content
 block scripts
   script(src='/socket.io/socket.io.js')
   script(src='javascripts/vendor.min.js')
+  script(src='javascripts/app.min.js', defer)
   //- // Google Analytics: change UA-XXXXX-X to be your site's ID.
   //- script
   //-   var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
