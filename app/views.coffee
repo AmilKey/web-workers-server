@@ -20,7 +20,9 @@ $("#exampleInputFile").change (e) ->
   reader.readAsDataURL file
 
 draw = ->
- 
+  socket.emit 'load image',
+    img.src
+
   return
 
 myFunction = ->
