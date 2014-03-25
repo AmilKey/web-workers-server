@@ -92,6 +92,14 @@ exports.config =
         autoreload:
           enabled: no
 
+  modules:
+    wrapper: (path, data) ->
+      """
+        #{data}
+        \n\n
+      """
+    definition: false
+
 # configs for start server
   server:
     path: 'server.coffee'
