@@ -37,7 +37,9 @@
     "ansi-color": "*",
     "date-utils": "*",
     "growl": "*",
-    "cordell": "*"
+    "cordell": "*",
+
+    "canvas": "*"
   },
   "devDependencies": {
     "karma": "0.8.1",
