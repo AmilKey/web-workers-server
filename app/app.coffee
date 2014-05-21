@@ -48,22 +48,31 @@ socket.on 'source image', (source_worker) ->
     worker = new Worker("javascripts/worker.js")
     worker.onmessage = callback
 
-    console.log source_worker.imagedata_work
-
+    ####################
+    #Result source
+    ####################
     img_res = ctx.createImageData source_worker.imagedata_result.width, source_worker.imagedata_result.height
     # img_res.data = source_worker.imagedata_result.data
 
+    ####################
+    #Source_worker
+    ####################
     img_source = ctx.createImageData source_worker.imagedata_work.width, source_worker.imagedata_work.height
-    # img_source.data.set new Uint8ClampedArray source_worker.imagedata_work.data
-
-    # source_worker.imagedata_result = img_res
-    # source_worker.imagedata_work = img_source
+    #преобразование объекта в массив
+    length = Object.keys(source_worker.imagedata_work.data).length
+    source_worker.imagedata_work.data.length = length + 1
+    array = Array.prototype.slice.apply(source_worker.imagedata_work.data)
     i = 0
-
-    while i < source_worker.imagedata_work.data.length
-      img_source.data[i] = source_worker.imagedata_work.data[i]
+    while i < array.length
+      img_source.data[i] = array[i]
       i++
-    console.log img_source
+    ######################
+
+    # img_source.data.set new Uint8ClampedArray(array) #error Source is too large
+
+    source_worker.imagedata_work = img_source
+    source_worker.imagedata_result = img_res
+    console.log source_worker
 
     worker.postMessage source_worker
 
@@ -81,5 +90,5 @@ callback = (event) ->
       # img = ctx_result.createImageData imagedata.width, imagedata.height
       # img.data.set imagedata.data
 
-      ctx.putImageData imagedata, 0, work_height * number
+      ctx_result.putImageData imagedata, 0, work_height * number
   return
