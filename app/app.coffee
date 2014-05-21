@@ -4,6 +4,7 @@ work_height = null
 
 socket.on 'clients', (count_clients)->
   clients = count_clients
+  console.log "count clients " + clients
   return
 
 # canvas_result = document.getElementById("your_canvas")
@@ -45,6 +46,9 @@ draw = ->
 socket.on 'source image', (source_worker) ->
   console.log "SOURCE IMAGE"
   if Worker?
+    num_workers = clients
+    work_height = Math.ceil canvas.height / num_workers
+
     worker = new Worker("javascripts/worker.js")
     worker.onmessage = callback
 
@@ -72,7 +76,6 @@ socket.on 'source image', (source_worker) ->
 
     source_worker.imagedata_work = img_source
     source_worker.imagedata_result = img_res
-    console.log source_worker
 
     worker.postMessage source_worker
 
@@ -86,9 +89,22 @@ callback = (event) ->
   if status is "complite" # Если фильтр выполнил работу
      # Переместить принятую Image Data в контекст canvas
     if canvas_result.getContext
-
-      # img = ctx_result.createImageData imagedata.width, imagedata.height
-      # img.data.set imagedata.data
-
+      socket.emit 'build image',
+        imagedata: imagedata
+        number: number
+        work_height: work_height
       ctx_result.putImageData imagedata, 0, work_height * number
   return
+
+socket.on 'build image', (res_img) ->
+  number = res_img.number
+  img_source = ctx.createImageData res_img.imagedata.width, res_img.imagedata.height
+  #преобразование объекта в массив
+  length = Object.keys(res_img.imagedata.data).length
+  res_img.imagedata.data.length = length + 1
+  array = Array.prototype.slice.apply(res_img.imagedata.data)
+  i = 0
+  while i < array.length
+    img_source.data[i] = array[i]
+    i++
+  ctx_result.putImageData img_source, 0, res_img.work_height * number
