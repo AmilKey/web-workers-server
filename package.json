@@ -31,7 +31,7 @@
     "ugly-blanket-brunch": "~1.5.3",
     "async": "*",
     "socket.io": "*",
-    "express": "*",
+    "express": "3.5.0",
     "jade": "~0.28.2",
     "debug": "~0.7.2",
     "ansi-color": "*",
