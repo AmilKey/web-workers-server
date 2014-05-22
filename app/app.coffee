@@ -4,7 +4,7 @@ work_height = null
 
 socket.on 'clients', (count_clients)->
   clients = count_clients
-  console.log "count clients " + clients
+  console.log "new connected :: count clients " + clients
   return
 
 # canvas_result = document.getElementById("your_canvas")
@@ -23,10 +23,10 @@ draw = ->
 
   for i in [0...num_workers]
     if i
-      imagedata_work[i] = ctx.getImageData 0, work_height * i - radius , canvas.width, work_height + radius
+      imagedata_work[i] = ctx.getImageData 0, work_height * i - radius , canvas.width, work_height + 2*radius
       imagedata_result[i] = ctx.getImageData 0, 0, canvas.width, work_height
     else
-      imagedata_work[i] = ctx.getImageData 0, 0, canvas.width, work_height + radius
+      imagedata_work[i] = ctx.getImageData 0, 0, canvas.width, work_height + 2 * radius
       imagedata_result[i] = ctx.getImageData 0, 0, canvas.width, work_height
 
   for i in [0...num_workers]
@@ -56,7 +56,6 @@ socket.on 'source image', (source_worker) ->
     #Result source
     ####################
     img_res = ctx.createImageData source_worker.imagedata_result.width, source_worker.imagedata_result.height
-    # img_res.data = source_worker.imagedata_result.data
 
     ####################
     #Source_worker
